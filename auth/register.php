@@ -1,4 +1,3 @@
-
 <?php
 // GÈRE LE PRE-FLIGHT (OPTIONS)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -111,4 +110,3 @@ try {
         "details" => $e->getMessage()
     ]);
 }
-?>
