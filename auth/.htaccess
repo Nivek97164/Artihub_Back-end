@@ -1,5 +1,5 @@
 <IfModule mod_headers.c>
-  Header set Access-Control-Allow-Origin "http://https://www.artihub.fr"
+  Header set Access-Control-Allow-Origin "https://www.artihub.fr"
   Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
   Header set Access-Control-Allow-Headers "Content-Type"
 </IfModule>

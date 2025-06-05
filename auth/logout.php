@@ -1,16 +1,24 @@
 <?php
+// CORS headers
 header("Access-Control-Allow-Origin: https://www.artihub.fr");
 header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 
-// Supprime le cookie JWT
+// Pré-flight OPTIONS (important pour CORS)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header("Access-Control-Allow-Methods: GET, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+    http_response_code(200);
+    exit;
+}
+
+// Supprimer le cookie JWT
 setcookie('jwt', '', [
     'httponly' => true,
-    'samesite' => 'Lax',
+    'samesite' => 'None',     
+    'secure' => true,        
     'path' => '/',
-    'secure' => false, // true en production HTTPS
-    'expires' => time() - 3600 // Date passée = supprime
+    'expires' => time() - 3600
 ]);
 
 echo json_encode(["success" => true]);
