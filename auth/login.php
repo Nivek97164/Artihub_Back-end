@@ -12,8 +12,9 @@ require_once __DIR__ . '/../utils/jwt.php';
 
 // Données reçues
 $data = json_decode(file_get_contents("php://input"), true);
-// Peut être email OU téléphone
-$login = $data['email'] ?? '';
+
+// Accepte email OU téléphone
+$login = $data['email'] ?? $data['phone'] ?? '';
 $password = $data['password'] ?? '';
 $role = $data['role'] ?? '';
 
@@ -24,7 +25,6 @@ if (!$login || !$password || !$role) {
 }
 
 $userModel = new User($pdo);
-// Utilise la nouvelle méthode qui filtre aussi par rôle :
 $user = $userModel->findByEmailOrPhoneAndRole($login, $role);
 
 if (!$user || !password_verify($password, $user['password'])) {
@@ -33,24 +33,19 @@ if (!$user || !password_verify($password, $user['password'])) {
     exit;
 }
 
-// ✅ Génère le JWT
 $jwt = generate_jwt($user['id']);
 
-// Pose le cookie JWT
 setcookie('jwt', $jwt, [
     'httponly' => true,
-    'samesite' => 'Lax',
+    'samesite' => 'None',    // Important !
+    'secure' => true,        // Important !
     'path' => '/',
-    'secure' => false,
-    'expires' => time() + 3600*24*7
+    'expires' => time() + 3600 * 24 * 7
 ]);
 
-// Après login réussi, déjà dans $user
 echo json_encode([
     "success" => true,
-    "jwt" => $jwt, // pour debug
     "role" => $user["role"],
     "id" => $user["id"],
-    "username" => $user["username"],
-    // Ajoute d'autres champs si besoin
+    "username" => $user["username"]
 ]);
