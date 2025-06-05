@@ -1,7 +1,7 @@
 <?php
-$host = 'localhost';
+$host = 'https://node234-eu.n0c.com/';
 $db   = 'uybhnhcm_artihub';
-$user = 'Nivek971426410:)';
+$user = 'uybhnhcm_Kevin971Bern';
 $pass = 'Nivek971426410:)'; // remplace par ton vrai mot de passe si tu en as défini un autre
 $charset = 'utf8mb4';
 
