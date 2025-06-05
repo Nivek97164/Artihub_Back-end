@@ -16,10 +16,10 @@ Ce projet constitue la partie **back-end** du site Artihub, développé en **PHP
 Dans le terminal, placez-vous dans le dossier `back-end/` et lancez :
 
 ```bash
-php -S localhost:8000
+php -S https://artihubback-end-production.up.railway.app
 ```
 
-> Le serveur tourne ensuite sur : [http://localhost:8000](http://localhost:8000)
+> Le serveur tourne ensuite sur : [http://https://artihubback-end-production.up.railway.app](http://https://artihubback-end-production.up.railway.app)
 
 ---
 
