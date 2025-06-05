@@ -151,4 +151,3 @@ POST /routes/evaluation.php
 - Si vous voyez `"Database connection failed"` : vérifiez vos identifiants MySQL
 - Consultez les logs dans le terminal pour tout `500 Internal Server Error`
 - 
-# Artihub_Back-end
