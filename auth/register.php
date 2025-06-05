@@ -1,8 +1,9 @@
+
 <?php
 // GÈRE LE PRE-FLIGHT (OPTIONS)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     header("Access-Control-Allow-Origin: https://artihubfront-end-production-3c59.up.railway.app");
-    header("Access-Control-Allow-Credentials: true"); // AJOUTE MOI ÇA !
+    header("Access-Control-Allow-Credentials: true");
     header("Access-Control-Allow-Methods: POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type");
     header("Access-Control-Max-Age: 86400");
@@ -10,11 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// CES HEADERS DOIVENT ÊTRE AUSSI PRÉSENTS SUR TOUTES LES AUTRES RÉPONSES
 header("Access-Control-Allow-Origin: https://artihubfront-end-production-3c59.up.railway.app");
-header("Access-Control-Allow-Credentials: true"); // ÇA ICI AUSSI
+header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
-
 
 // Affichage erreurs (désactive en prod)
 error_reporting(E_ALL);
@@ -28,9 +27,19 @@ require_once __DIR__ . '/../utils/jwt.php';
 $rawInput = file_get_contents("php://input");
 $data = json_decode($rawInput, true);
 
+// DEBUG JSON invalide
+if (is_null($data)) {
+    http_response_code(400);
+    echo json_encode([
+        "error" => "Le JSON est invalide ou vide",
+        "raw" => $rawInput
+    ]);
+    exit;
+}
+
 // Vérification des champs obligatoires
 $champs = ['username', 'email', 'password', 'role'];
-$missing = array_filter($champs, fn($k) => empty($data[$k]));
+$missing = array_filter($champs, fn($k) => !isset($data[$k]) || trim($data[$k]) === '');
 if (!empty($missing)) {
     http_response_code(400);
     echo json_encode([
@@ -44,7 +53,7 @@ $userModel = new User($pdo);
 
 // Vérifier l'unicité de l'email pour le même rôle
 if ($userModel->findByEmailAndRole($data['email'], $data['role'])) {
-    http_response_code(409); // Conflit
+    http_response_code(409);
     echo json_encode([
         "error" => "Un compte existe déjà avec cet email pour ce type de profil."
     ]);
@@ -53,15 +62,13 @@ if ($userModel->findByEmailAndRole($data['email'], $data['role'])) {
 
 // Vérifier l'unicité du téléphone pour le même rôle
 if (!empty($data['phone']) && $userModel->findByPhoneAndRole($data['phone'], $data['role'])) {
-    http_response_code(409); // Conflit
+    http_response_code(409);
     echo json_encode([
         "error" => "Un compte existe déjà avec ce numéro pour ce type de profil."
     ]);
     exit;
 }
 
-
-// Création utilisateur
 try {
     $success = $userModel->create(
         $data['username'],
@@ -82,15 +89,13 @@ try {
             exit;
         }
 
-        // Génère le token JWT
         $jwt = generate_jwt($userData['id']);
 
-        // Pose le cookie JWT
         setcookie('jwt', $jwt, [
             'httponly' => true,
-            'samesite' => 'Lax',
+            'samesite' => 'None',
             'path' => '/',
-            'secure' => false, // true si HTTPS
+            'secure' => true,
             'expires' => time() + 3600*24*7
         ]);
 
@@ -106,3 +111,4 @@ try {
         "details" => $e->getMessage()
     ]);
 }
+?>
