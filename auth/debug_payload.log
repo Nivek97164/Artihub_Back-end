@@ -1,0 +1,15 @@
+RAW : 
+{"username":"Timothe Billard","email":"tim@gmail.com","password":"tim","role":"artisan","phone":"0782616445","address":"6 rue des clamarts","postal_code":"94130","geolocalisation_enable":true}
+
+PARSED : 
+Array
+(
+    [username] => Timothe Billard
+    [email] => tim@gmail.com
+    [password] => tim
+    [role] => artisan
+    [phone] => 0782616445
+    [address] => 6 rue des clamarts
+    [postal_code] => 94130
+    [geolocalisation_enable] => 1
+)
