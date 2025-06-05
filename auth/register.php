@@ -1,7 +1,7 @@
 <?php
 // GÈRE LE PRE-FLIGHT (OPTIONS)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header("Access-Control-Allow-Origin: http://https://artihubfront-end-production-3c59.up.railway.app");
+    header("Access-Control-Allow-Origin: https://artihubfront-end-production-3c59.up.railway.app");
     header("Access-Control-Allow-Credentials: true"); // AJOUTE MOI ÇA !
     header("Access-Control-Allow-Methods: POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type");
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // CES HEADERS DOIVENT ÊTRE AUSSI PRÉSENTS SUR TOUTES LES AUTRES RÉPONSES
-header("Access-Control-Allow-Origin: http://https://artihubfront-end-production-3c59.up.railway.app");
+header("Access-Control-Allow-Origin: https://artihubfront-end-production-3c59.up.railway.app");
 header("Access-Control-Allow-Credentials: true"); // ÇA ICI AUSSI
 header('Content-Type: application/json');
 

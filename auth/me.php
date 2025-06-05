@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header("Access-Control-Allow-Origin: http://https://artihubfront-end-production-3c59.up.railway.app");
+    header("Access-Control-Allow-Origin: https://artihubfront-end-production-3c59.up.railway.app");
     header("Access-Control-Allow-Credentials: true"); // AJOUTE MOI ÇA !
     header("Access-Control-Allow-Methods: POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type");
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 
-header("Access-Control-Allow-Origin: http://https://artihubfront-end-production-3c59.up.railway.app");
+header("Access-Control-Allow-Origin: https://artihubfront-end-production-3c59.up.railway.app");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");

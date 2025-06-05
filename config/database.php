@@ -1,8 +1,9 @@
 <?php
-$host = 'https://node234-eu.n0c.com/';
-$db   = 'uybhnhcm_artihub';
-$user = 'uybhnhcm_Kevin971Bern';
-$pass = 'Nivek971426410:)'; // remplace par ton vrai mot de passe si tu en as défini un autre
+$host = 'gondola.proxy.rlwy.net';
+$port = 56629;
+$db   = 'railway';
+$user = 'root';
+$pass = 'kCneUUOPuBkkISAvWiIspBcEUDMFYBlo';
 $charset = 'utf8mb4';
 
 $options = [
@@ -12,10 +13,10 @@ $options = [
 ];
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=$charset", $user, $pass, $options);
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=$charset", $user, $pass, $options);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Database connection failed']);
+    echo json_encode(['error' => 'Database connection failed', 'details' => $e->getMessage()]);
     exit;
 }
 ?>
