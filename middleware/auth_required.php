@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: http://https://artihubfront-end-production-3c59.up.railway.app");
+header("Access-Control-Allow-Origin: http://https://www.artihub.fr");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
